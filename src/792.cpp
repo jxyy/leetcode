@@ -13,7 +13,6 @@ void printv(vector<int>& v) {
 class Solution {
 public:
     int binary_search(vector<int>& v, int target, int start, int end) {
-        // cout << target << " " << start << " " << end << endl;
         if (start >= end) {
             return end;
         }
@@ -36,15 +35,10 @@ public:
         
         int count = 0;
         for(auto w : words) {
-            if (w.length() > S.length()) {
-                continue;
-            }
             int i = -1, j = 0;
-            // cout << "word:" << w.length() << endl;
             for(; j < w.length(); j++) {
                 vector<int> cindices = cmap[w[j]];
                 int ci = binary_search(cindices, i, 0, cindices.size());
-                // cout << "near i:" << ci << endl;
                 if (ci < cindices.size() && cindices[ci] > i) {
                     i = cindices[ci];
                 } else{
@@ -52,7 +46,6 @@ public:
                 }
             }
             if (j == w.length()) {
-                // cout << "666" << endl;
                 count ++;
             }
         }        
