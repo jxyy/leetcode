@@ -31,13 +31,12 @@ public:
 
         while(q.size() > 0){
             ListNode* min = q.top();
-            ListNode* new_node = new ListNode(min->val);
             if(ret_head == NULL){
-                ret_head = new_node;
-                ret_tail = new_node;
+                ret_head = min;
+                ret_tail = min;
             }else{
-                ret_tail->next = new_node;
-                ret_tail = new_node;
+                ret_tail->next = min;
+                ret_tail = min;
             }
             q.pop();
             if(min->next != NULL){
