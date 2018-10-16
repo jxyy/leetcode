@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<queue>
+#include<functional>
 using namespace std;
 
 struct ListNode {
@@ -21,7 +22,8 @@ public:
         ListNode* ret_head = NULL;
         ListNode* ret_tail = NULL;
         int k = lists.size();
-        priority_queue<ListNode*, vector<ListNode*>, cmp > q;
+        auto cmp = [](ListNode* a, ListNode* b){return a->val > b->val;};
+        priority_queue<ListNode*, vector<ListNode*>, decltype(cmp) > q(cmp);
         for(int i = 0; i < k; i++){
             if(lists[i] != NULL)
                 q.push(lists[i]);
