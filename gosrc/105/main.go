@@ -25,15 +25,9 @@ func buildTree(preorder []int, inorder []int) *TreeNode {
 	}
 	var root = &TreeNode{preorder[0], nil, nil}
 	var i = find(inorder, root.Val)
-	// fmt.Println(root.Val, i, preorder, inorder)
-	// fmt.Println(preorder[1:1+i], inorder[:i])
-	// fmt.Println(preorder[i+i:], inorder[i+1:])
-	// bufio.NewReader(os.Stdin).ReadByte()
 	if i > 0 {
 		root.Left = buildTree(preorder[1:1+i], inorder[:i])
 	}
-	// root.Left = buildTree(preorder[1:1+i], inorder[:i])
-	// if len(inorder)
 	root.Right = buildTree(preorder[1+i:], inorder[1+i:])
 	return root
 }
