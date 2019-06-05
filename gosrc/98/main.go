@@ -1,28 +1,49 @@
 package main
 
-import "fmt"
-
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
 	Right *TreeNode
 }
 
-func isValid(node *TreeNode, min, max int) bool {
-	if node == nil {
-		return true
+func zigzagLevelOrder(root *TreeNode) [][]int {
+	if root == nil {
+		return nil
 	}
-	if node.Val <= min || node.Val >= max {
-		return false
-	}
-	return isValid(node.Left, min, node.Val) && isValid(node.Right, node.Val, max)
-}
+	var res [][]int
+	var nextStack []*TreeNode
+	var fromLeftToRight = true
+	nextStack = append(nextStack, root)
+	for len(nextStack) > 0 {
+		var currStack = nextStack
+		nextStack = []*TreeNode{}
+		var nums = []int{}
+		for i := len(currStack) - 1; i >= 0; i-- {
+			node := currStack[i]
+			nums = append(nums, node.Val)
+			if fromLeftToRight {
+				if node.Left != nil {
+					nextStack = append(nextStack, node.Left)
+				}
+				if node.Right != nil {
+					nextStack = append(nextStack, node.Right)
+				}
+			} else {
+				if node.Right != nil {
+					nextStack = append(nextStack, node.Right)
+				}
+				if node.Left != nil {
+					nextStack = append(nextStack, node.Left)
+				}
+			}
 
-func isValidBST(root *TreeNode) bool {
-	var min, max int = -0x100000000, 0xffffffff
-	return isValid(root, min, max)
+		}
+		fromLeftToRight = !fromLeftToRight
+		res = append(res, nums)
+	}
+	return res
 }
 
 func main() {
-	fmt.Println(isValidBST(&TreeNode{2147483647, nil, nil}))
+
 }
