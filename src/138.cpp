@@ -31,7 +31,7 @@ public:
         map[head] = new_head;
         Node* node = head, *new_node = new_head;
         while (node->next!=NULL){
-            Node* new_next = new Node(node->val, NULL, NULL);
+            Node* new_next = new Node(node->next->val, NULL, NULL);
             new_node->next = new_next;
             map[node->next] = new_next;
             node = node->next;
