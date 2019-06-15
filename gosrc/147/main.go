@@ -28,7 +28,7 @@ func insertionSortList(head *ListNode) *ListNode {
 			sortedTail = nodeToInsert
 		} else {
 			var node = sortedHead
-			for ; node.Next.Val <= nodeToInsert.Val && node != sortedTail; node = node.Next {
+			for ; node.Next.Val <= nodeToInsert.Val; node = node.Next {
 			}
 			var tmp = node.Next
 			node.Next = nodeToInsert
