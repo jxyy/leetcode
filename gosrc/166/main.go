@@ -14,27 +14,39 @@ func digitsToString(digits []int) string {
 }
 
 func fractionToDecimal(numerator int, denominator int) string {
+	if denominator < 0 {
+		numerator = -numerator
+		denominator = -denominator
+	}
+
+	var isNegtive = false
+	if numerator < 0 {
+		isNegtive = true
+		numerator = -numerator
+	}
+
 	var intPart = numerator / denominator
 	var residual = numerator % denominator
 	if residual == 0 {
+		if isNegtive {
+			return "-" + strconv.Itoa(intPart)
+		}
 		return strconv.Itoa(intPart)
 	}
 
 	var decimalPart []int
-	var mem = make([]int, denominator)
-	for i := 0; i < denominator; i++ {
-		mem[i] = -1
-	}
+	var mem = make(map[int]int)
 	var loopPos = -1
 	mem[residual] = 0
-	for i := 0; residual > 0; i++ {
+	for i := 1; residual > 0; i++ {
 		residual *= 10
 		decimalPart = append(decimalPart, residual/denominator)
 		residual = residual % denominator
-		loopPos = mem[residual]
-		if loopPos >= 0 {
+		if pos, ok := mem[residual]; ok {
+			loopPos = pos
 			break
 		}
+		mem[residual] = i
 	}
 
 	var decimalStr string
@@ -42,6 +54,9 @@ func fractionToDecimal(numerator int, denominator int) string {
 		decimalStr = digitsToString(decimalPart[:loopPos]) + "(" + digitsToString(decimalPart[loopPos:]) + ")"
 	} else {
 		decimalStr = digitsToString(decimalPart)
+	}
+	if isNegtive {
+		return "-" + strconv.Itoa(intPart) + "." + decimalStr
 	}
 	return strconv.Itoa(intPart) + "." + decimalStr
 }
@@ -51,6 +66,6 @@ func main() {
 	fmt.Println(fractionToDecimal(2, 1))
 	fmt.Println(fractionToDecimal(2, 3))
 	fmt.Println(fractionToDecimal(1, 6))
-	fmt.Println(digitsToString([]int{1, 2, 3}))
-	fmt.Println(byte('0'))
+	fmt.Println(fractionToDecimal(-50, 8))
+	fmt.Println(fractionToDecimal(1, 214748364))
 }
