@@ -10,9 +10,6 @@ const MinInt = -MaxInt - 1
 
 func findPeakElement(nums []int) int {
 	var lo, hi = 0, len(nums)
-	// if hi == 1 {
-	// 	return 0
-	// }
 	for {
 		var mi = (hi + lo) / 2
 		var n1 = MinInt
@@ -24,8 +21,6 @@ func findPeakElement(nums []int) int {
 		if mi+1 < len(nums) {
 			n3 = nums[mi+1]
 		}
-		// fmt.Println(lo, hi, mi, n1, n2, n3)
-		// fmt.Println(lo, hi, mi)
 		if n1 < n2 && n2 > n3 {
 			return mi
 		} else if n1 > n2 {
