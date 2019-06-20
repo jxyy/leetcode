@@ -9,7 +9,6 @@ type TreeNode struct {
 }
 
 func rdfs(node *TreeNode, depth int, res []int) []int {
-	fmt.Println(node.Val, depth, res)
 	if depth == len(res) {
 		res = append(res, node.Val)
 	}
