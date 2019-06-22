@@ -19,7 +19,7 @@ func combinationSum3(k int, n int) [][]int {
 			from = curr[i-1]
 		}
 
-		fmt.Println(i, curr, from)
+		// fmt.Println(i, curr, from)
 		if i == k-1 {
 			var rest = n - currSum
 			if rest > from && rest < 10 {
