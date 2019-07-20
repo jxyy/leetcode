@@ -4,19 +4,28 @@ import (
 	"fmt"
 )
 
-func hIndex(citations []int) int {
-	// sorted acending
-	var hindex = 0
-	var l = len(citations)
-	for i := 0; i < l; i++ {
-		var c = citations[l-1-i]
-		if c > hindex {
-			hindex++
-		}
+func min(a, b int) int {
+	if a < b {
+		return a
 	}
-	return hindex
+	return b
+}
+
+func numSquares(n int) int {
+	var dp = make([]int, n+1)
+	dp[0] = 0
+	for i := 1; i <= n; i++ {
+		var dpi = i
+		for j := 1; j*j <= i; j++ {
+			dpi = min(dpi, dp[i-j*j]+1)
+		}
+		dp[i] = dpi
+	}
+	fmt.Println(dp)
+	return dp[n]
 }
 
 func main() {
-	fmt.Println(hIndex([]int{3, 0, 6, 1, 5}))
+	fmt.Println(numSquares(12))
+	fmt.Println(numSquares(13))
 }

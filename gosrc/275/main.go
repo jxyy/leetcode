@@ -4,28 +4,21 @@ import (
 	"fmt"
 )
 
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func numSquares(n int) int {
-	var dp = make([]int, n+1)
-	dp[0] = 0
-	for i := 1; i <= n; i++ {
-		var dpi = i
-		for j := 1; j*j <= i; j++ {
-			dpi = min(dpi, dp[i-j*j]+1)
+func hIndex(citations []int) int {
+	// sorted acending
+	var l = len(citations)
+	var lo, hi = 0, l
+	for lo < hi {
+		var mi = (lo + hi) / 2
+		if citations[mi] >= l-mi {
+			hi = mi
+		} else {
+			lo = mi + 1
 		}
-		dp[i] = dpi
 	}
-	fmt.Println(dp)
-	return dp[n]
+	return l - lo
 }
 
 func main() {
-	fmt.Println(numSquares(12))
-	fmt.Println(numSquares(13))
+	fmt.Println(hIndex([]int{0, 1, 3, 5, 6}))
 }
