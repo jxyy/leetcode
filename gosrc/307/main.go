@@ -11,22 +11,25 @@ type NumArray struct {
 func Constructor(nums []int) NumArray {
 	var n = len(nums)
 	var bt = make([]int, n+1)
-	var na = NumArray{n, bt, make([]int, n)}
+	var na = NumArray{n, bt, nums}
 	for i, val := range nums {
-		na.Update(i, val)
+		na.updateDf(i, val)
 	}
-	na.nums = nums
 	return na
 }
 
-func (this *NumArray) Update(i int, val int) {
-	var df = val - this.nums[i]
-	this.nums[i] = val
+func (this *NumArray) updateDf(i int, df int) {
 	i++
 	for i <= this.n {
 		this.bt[i] += df
 		i += i & (-i)
 	}
+}
+
+func (this *NumArray) Update(i int, val int) {
+	var df = val - this.nums[i]
+	this.nums[i] = val
+	this.updateDf(i, df)
 }
 
 func (this *NumArray) sum(i int) int {
